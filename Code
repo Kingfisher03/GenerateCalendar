@@ -1,0 +1,37 @@
+#Import packages used
+import numpy as np
+import pandas as pd 
+from datetime import date, timedelta
+
+def generate_calendar(start_date, end_date):
+    #generates dates and times between start date and end date
+    datedf = pd.date_range(start_date, end_date, freq='30 min')
+    
+    #find just the date and time from long date
+    date = datedf.date
+    time = datedf.time
+    
+    #number of intervals found
+    x=len(date)
+    
+    #creating period array
+    period = np.zeros(x)
+    i=1
+    j=1
+    
+    #function to calculate the period and reset each day (when j>48)
+    for i in range(x):
+        period[i] = j
+        i += 1 
+        j += 1
+        if j > 48: 
+            j=1
+    
+    #collect data to display together
+    data = {"Date" : date, 
+           "Time" : time, 
+           "Period" : period}
+    #create dataframe
+    dataframe = pd.DataFrame(data)
+ 
+    return dataframe
